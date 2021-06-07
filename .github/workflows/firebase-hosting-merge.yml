@@ -37,4 +37,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLUTTER_WEB_82849 }}'
           channelId: live
-          projectId: flutter-web-82849
+          # projectId: flutter-web-82849
+          projectId: sony-company
