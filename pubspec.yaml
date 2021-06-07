@@ -14,10 +14,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  firebase_core: ^1.0.3
-  firebase_storage: ^8.0.3
-  path_provider: ^2.0.1
+  provider: ^5.0.0
+  firebase_core: ^1.2.1
+  cloud_firestore: ^2.2.1
+
+  cupertino_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +27,7 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
 
   # To add assets to your application, add an assets section, like this:
   assets:
