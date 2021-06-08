@@ -17,8 +17,11 @@ class _MainPageState extends State<ChatPage> {
     return ChangeNotifierProvider<ChatModel>(
       create: (_) => ChatModel()..getChatListRealtime(),
       child: Scaffold(
+                backgroundColor: Colors.black,
+
         appBar: AppBar(
-          title: Text('小松がロックバンドやるらしいwwwwww'),
+          backgroundColor: Colors.black,
+          title: Text('小松がロックバンドやるらしいwwwwww', style: TextStyle(color: Colors.red),),
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
@@ -56,7 +59,7 @@ class _MainPageState extends State<ChatPage> {
                     ),
                     subtitle: Text(
                       todo.title,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.red),
                     ),
                   ),
                 )

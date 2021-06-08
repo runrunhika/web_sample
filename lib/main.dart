@@ -38,8 +38,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('掲示板'),
+        backgroundColor: Colors.black,
+        title: Text(
+          '掲示板',
+          style: TextStyle(color: Colors.red),
+        ),
         centerTitle: true,
         leading: Container(),
       ),
@@ -58,9 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(
                             fontSize: 30,
                             decoration: TextDecoration.underline,
-                            color: Colors.blue),
+                            color: Colors.red),
                       ),
-                      trailing: Icon(Icons.backup),
+                      leading: Icon(
+                        Icons.arrow_circle_up,
+                        color: Colors.red,
+                      ),
                     )),
               ),
               onTap: () {
@@ -83,8 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(
                               fontSize: 30,
                               decoration: TextDecoration.underline,
-                              color: Colors.blue)),
-                      trailing: Icon(Icons.backup),
+                              color: Colors.red)),
+                      leading: Icon(
+                        Icons.arrow_circle_up,
+                        color: Colors.red,
+                      ),
                     )),
               ),
               onTap: () {
