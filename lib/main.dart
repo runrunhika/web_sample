@@ -41,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('掲示板'),
         centerTitle: true,
+        leading: Container(),
       ),
       body: ListView(
         children: [
@@ -53,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: Text(
                       "井上の件",
                       style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 30,
                           decoration: TextDecoration.underline,
                           color: Colors.blue),
                     ),
@@ -72,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ListTile(
                     title: Text("小松がロックバンドやるらしいwwwwww",
                         style: TextStyle(
-                            fontSize: 40,
+                            fontSize: 30,
                             decoration: TextDecoration.underline,
                             color: Colors.blue)),
                     trailing: Icon(Icons.backup),
