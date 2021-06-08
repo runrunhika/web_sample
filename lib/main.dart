@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/domain/data.dart';
 import 'package:web_sample/screen/add_page.dart';
+import 'package:web_sample/screen/chat_page.dart';
+import 'package:web_sample/screen/main_page.dart';
 
 import 'model/list_page_model.dart';
 
@@ -18,82 +20,70 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: '掲示板',
-      home: MainPage(),
+      home: MyHomePage(),
     );
   }
 }
 
-class MainPage extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
-  _MainPageState createState() => _MainPageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MainModel>(
-      create: (_) => MainModel()..getTodoListRealtime(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('掲示板'),
-          centerTitle: true,
-          // actions: [
-          //   Consumer<MainModel>(builder: (context, model, child) {
-          //     final isActive = model.checkShouldActiveCompleteButton();
-          //     return FlatButton(
-          //       onPressed: isActive
-          //           ? () async {
-          //               await model.deleteCheckedItems();
-          //             }
-          //           : null,
-          //       child: Text(
-          //         '完了',
-          //         style: TextStyle(
-          //           color:
-          //               isActive ? Colors.white : Colors.white.withOpacity(0.5),
-          //         ),
-          //       ),
-          //     );
-          //   })
-          // ],
-        ),
-        body: Consumer<MainModel>(builder: (context, model, child) {
-          final todoList = model.todoList;
-          return ListView(
-            children: todoList
-                .map(
-                  (todo) => ListTile(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('掲示板'),
+        centerTitle: true,
+      ),
+      body: ListView(
+        children: [
+          InkWell(
+            child: Container(
+              width: double.infinity,
+              child: Align(
+                  alignment: Alignment.center,
+                  child: ListTile(
                     title: Text(
-                      '名無し　' + todo.createdAt.toString(),
-                      style: TextStyle(color: Colors.grey.withOpacity(.6)),
+                      "井上の件",
+                      style: TextStyle(
+                          fontSize: 40,
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue),
                     ),
-                    subtitle: Text(
-                      todo.title,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                )
-                .toList(),
-          );
-        }),
-        floatingActionButton:
-            Consumer<MainModel>(builder: (context, model, child) {
-          return FloatingActionButton.extended(
-            onPressed: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddPage(model),
-                  fullscreenDialog: true,
-                ),
-              );
+                    trailing: Icon(Icons.backup),
+                  )),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => MainPage()));
             },
-            label: const Text('Tweet'),
-            icon: const Icon(Icons.add),
-            backgroundColor: Colors.pink,
-          );
-        }),
+          ),
+          InkWell(
+            child: Container(
+              child: Align(
+                  alignment: Alignment.center,
+                  child: ListTile(
+                    title: Text("小松がロックバンドやるらしいwwwwww",
+                        style: TextStyle(
+                            fontSize: 40,
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue)),
+                    trailing: Icon(Icons.backup),
+                  )),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => ChatPage()));
+            },
+          ),
+        ],
       ),
     );
   }

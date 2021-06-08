@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_sample/main.dart';
-import 'package:web_sample/model/list_page_model.dart';
-import 'package:web_sample/screen/main_page.dart';
+import 'package:web_sample/model/chat_model.dart';
 
-class AddPage extends StatelessWidget {
-  final MainModel model;
-  AddPage(this.model);
+import 'chat_page.dart';
+
+class AddChatPage extends StatelessWidget {
+  final ChatModel model;
+  AddChatPage(this.model);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MainModel>.value(
+    return ChangeNotifierProvider<ChatModel>.value(
       value: model,
       child: Scaffold(
         appBar: AppBar(
@@ -22,7 +22,7 @@ class AddPage extends StatelessWidget {
                 ),
                 onPressed: () async {
                   // firestoreに値を追加する
-                  await model.add();
+                  await model.addChat();
                   Navigator.pop(context);
                 },
               ),
@@ -30,10 +30,10 @@ class AddPage extends StatelessWidget {
             leading: TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (ctx) => MainPage()));
+                      context, MaterialPageRoute(builder: (ctx) => ChatPage()));
                 },
                 child: Text("戻る", style: TextStyle(color: Colors.white)))),
-        body: Consumer<MainModel>(builder: (context, model, child) {
+        body: Consumer<ChatModel>(builder: (context, model, child) {
           return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -49,7 +49,7 @@ class AddPage extends StatelessWidget {
                     hintText: "大日本帝国以外くそ",
                   ),
                   onChanged: (text) {
-                    model.newTodoText = text;
+                    model.newChatText = text;
                   },
                 ),
                 SizedBox(

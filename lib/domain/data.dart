@@ -14,4 +14,6 @@ class Todo {
   late DateTime createdAt;
   late bool isDone = false;
   late DocumentReference documentReference;
+
+  String? get documentID => null;
 }
