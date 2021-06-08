@@ -45,44 +45,53 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         children: [
-          InkWell(
-            child: Container(
-              width: double.infinity,
-              child: Align(
-                  alignment: Alignment.center,
-                  child: ListTile(
-                    title: Text(
-                      "井上の件",
-                      style: TextStyle(
-                          fontSize: 30,
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue),
-                    ),
-                    trailing: Icon(Icons.backup),
-                  )),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (ctx) => MainPage()));
-            },
-          ),
-          InkWell(
-            child: Container(
-              child: Align(
-                  alignment: Alignment.center,
-                  child: ListTile(
-                    title: Text("小松がロックバンドやるらしいwwwwww",
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 28.0),
+            child: InkWell(
+              child: Container(
+                width: double.infinity,
+                child: Align(
+                    alignment: Alignment.center,
+                    child: ListTile(
+                      title: Text(
+                        "井上の件",
                         style: TextStyle(
                             fontSize: 30,
                             decoration: TextDecoration.underline,
-                            color: Colors.blue)),
-                    trailing: Icon(Icons.backup),
-                  )),
+                            color: Colors.blue),
+                      ),
+                      trailing: Icon(Icons.backup),
+                    )),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => MainPage()));
+              },
             ),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (ctx) => ChatPage()));
-            },
+          ),
+          Divider(
+            color: Colors.black,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 28.0),
+            child: InkWell(
+              child: Container(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: ListTile(
+                      title: Text("小松がロックバンドやるらしいwwwwww",
+                          style: TextStyle(
+                              fontSize: 30,
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue)),
+                      trailing: Icon(Icons.backup),
+                    )),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => ChatPage()));
+              },
+            ),
           ),
         ],
       ),
