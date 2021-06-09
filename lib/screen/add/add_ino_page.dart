@@ -1,12 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_sample/main.dart';
-import 'package:web_sample/model/list_page_model.dart';
-import 'package:web_sample/screen/main_page.dart';
+import 'package:web_sample/model/ino_page_model.dart';
+import 'package:web_sample/screen/pages/ino_page.dart';
 
-class AddPage extends StatelessWidget {
+class AddInoPage extends StatelessWidget {
   final MainModel model;
-  AddPage(this.model);
+  AddInoPage(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,8 @@ class AddPage extends StatelessWidget {
                 ),
                 onPressed: () async {
                   // firestoreに値を追加する
-                  await model.add();
-                  Navigator.pop(context);
+                  await addBook(model, context);
+                  
                 },
               ),
             ],
@@ -38,22 +39,19 @@ class AddPage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                TextFormField(
+                TextField(
                   maxLength: 120,
-                  maxLines: 6,
+                  maxLines: 10,
                   decoration: InputDecoration(
                     filled: true,
                     focusColor: Colors.lightBlue.shade100,
                     border: OutlineInputBorder(),
                     labelText: "掲示板に投稿したい内容を記入しよう",
-                    hintText: "大日本帝国以外くそ",
+                    hintText: "大日本帝国万歳",
                   ),
                   onChanged: (text) {
                     model.newTodoText = text;
                   },
-                ),
-                SizedBox(
-                  height: 16,
                 ),
               ],
             ),
@@ -61,5 +59,45 @@ class AddPage extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  Future addBook(MainModel model, BuildContext context) async {
+    try {
+      await model.addIno();
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('投稿しました'),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('OK'),
+                onPressed: () {
+                 Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+      Navigator.of(context).pop();
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(e.toString()),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('はい！イエッサ！！！'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

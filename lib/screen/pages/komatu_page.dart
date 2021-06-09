@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/main.dart';
-import 'package:web_sample/model/chat_model.dart';
+import 'package:web_sample/model/komatu_model.dart';
 
-import 'add_chat_page.dart';
-import 'add_page.dart';
+import '../add/add_komatu_page.dart';
 
-class ChatPage extends StatefulWidget {
+class KomatuPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<ChatPage> {
+class _MainPageState extends State<KomatuPage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ChatModel>(
-      create: (_) => ChatModel()..getChatListRealtime(),
+    return ChangeNotifierProvider<KomatuModel>(
+      create: (_) => KomatuModel()..getKomatuListRealtime(),
       child: Scaffold(
                 backgroundColor: Colors.black,
 
@@ -47,8 +46,8 @@ class _MainPageState extends State<ChatPage> {
           //   })
           // ],
         
-        body: Consumer<ChatModel>(builder: (context, model, child) {
-          final todoList = model.chatList;
+        body: Consumer<KomatuModel>(builder: (context, model, child) {
+          final todoList = model.komatuList;
           return ListView(
             children: todoList
                 .map(
@@ -67,13 +66,13 @@ class _MainPageState extends State<ChatPage> {
           );
         }),
         floatingActionButton:
-            Consumer<ChatModel>(builder: (context, model, child) {
+            Consumer<KomatuModel>(builder: (context, model, child) {
           return FloatingActionButton.extended(
             onPressed: () async {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddChatPage(model),
+                  builder: (context) => AddKomatuPage(model),
                   fullscreenDialog: true,
                 ),
               );

@@ -27,7 +27,10 @@ class MainModel extends ChangeNotifier {
     });
   }
 
-  Future add() async {
+  Future addIno() async {
+    if (newTodoText.isEmpty) {
+      throw ('タイトルを入力してください');
+    }
     final collection = FirebaseFirestore.instance.collection('todoList');
     await collection.add({
       'title': newTodoText,

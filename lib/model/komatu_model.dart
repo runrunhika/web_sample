@@ -2,35 +2,38 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:web_sample/domain/data.dart';
 
-class ChatModel extends ChangeNotifier {
-  List<Todo> chatList = [];
-  String newChatText = '';
+class KomatuModel extends ChangeNotifier {
+  List<Todo> komatuList = [];
+  String newKomatuText = '';
 
-  Future getChatList() async {
+  Future getKomatuList() async {
     final snapshot =
         await FirebaseFirestore.instance.collection('chatList').get();
     final docs = snapshot.docs;
     final todoList = docs.map((doc) => Todo(doc)).toList();
-    this.chatList = todoList;
+    this.komatuList = todoList;
     notifyListeners();
   }
 
-  void getChatListRealtime() {
+  void getKomatuListRealtime() {
     final snapshots =
         FirebaseFirestore.instance.collection('chatList').snapshots();
     snapshots.listen((snapshot) {
       final docs = snapshot.docs;
       final todoList = docs.map((doc) => Todo(doc)).toList();
       todoList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-      this.chatList = todoList;
+      this.komatuList = todoList;
       notifyListeners();
     });
   }
 
-  Future addChat() async {
+  Future addKomatu() async {
+    if (newKomatuText.isEmpty) {
+      throw ('タイトルを入力してください');
+    }
     final collection = FirebaseFirestore.instance.collection('chatList');
     await collection.add({
-      'title': newChatText,
+      'title': newKomatuText,
       'createdAt': Timestamp.now(),
     });
   }
@@ -39,7 +42,7 @@ class ChatModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteChat(Todo todo) async {
+  Future deleteKomatu(Todo todo) async {
     await FirebaseFirestore.instance
         .collection('chatList')
         .doc(todo.documentID)

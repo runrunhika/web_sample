@@ -2,13 +2,12 @@ import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:web_sample/domain/data.dart';
-import 'package:web_sample/screen/add_page.dart';
-import 'package:web_sample/screen/chat_page.dart';
-import 'package:web_sample/screen/main_page.dart';
+import 'package:web_sample/screen/pages/ino_page.dart';
+import 'package:web_sample/screen/utils/ino_utils.dart';
+import 'package:web_sample/screen/utils/komatu_utils.dart';
 
-import 'model/list_page_model.dart';
+import 'screen/pages/komatu_page.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         children: [
+          Divider(
+            color: Colors.white,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 28.0),
             child: InkWell(
@@ -73,12 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => MainPage()));
+                    context, MaterialPageRoute(builder: (ctx) => inoUtils()));
               },
             ),
           ),
           Divider(
-            color: Colors.black,
+            color: Colors.white,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 28.0),
@@ -100,9 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => ChatPage()));
+                    context, MaterialPageRoute(builder: (ctx) => komatuUtils()));
               },
             ),
+          ),
+          Divider(
+            color: Colors.white,
           ),
         ],
       ),

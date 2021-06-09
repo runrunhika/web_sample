@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/main.dart';
-import 'package:web_sample/model/list_page_model.dart';
+import 'package:web_sample/model/ino_page_model.dart';
 
-import 'add_page.dart';
+import '../add/add_ino_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -11,6 +11,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MainModel>(
@@ -53,7 +54,7 @@ class _MainPageState extends State<MainPage> {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddPage(model),
+                  builder: (context) => AddInoPage(model),
                   fullscreenDialog: true,
                 ),
               );
