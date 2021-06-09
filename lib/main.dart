@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -7,7 +8,6 @@ import 'package:web_sample/screen/utils/ino_utils.dart';
 import 'package:web_sample/screen/utils/komatu_utils.dart';
 
 import 'screen/pages/komatu_page.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,46 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '掲示板',
-      home: MyHomePage(),
+      home: FirstPage(),
+    );
+  }
+}
+
+class FirstPage extends StatefulWidget {
+  const FirstPage({Key? key}) : super(key: key);
+
+  @override
+  _FirstPageState createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
+  @override
+  void initState() {
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MyHomePage()));
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Text(
+          '''
+万          我         万
+歳          ら         歳
+万          大         万
+歳          日         歳
+万          本         万
+歳          帝         歳
+万          国         万
+          ''',
+          style: TextStyle(color: Colors.white, fontSize: 50),
+        ),
+      ),
     );
   }
 }
@@ -101,8 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     )),
               ),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => komatuUtils()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => komatuUtils()));
               },
             ),
           ),

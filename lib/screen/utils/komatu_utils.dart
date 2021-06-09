@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:web_sample/screen/pages/ino_page.dart';
+import 'package:web_sample/screen/pages/komatu_page.dart';
 
 class komatuUtils extends StatefulWidget {
   const komatuUtils({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _komatuUtilsState extends State<komatuUtils> {
   void initState() {
     Timer(Duration(seconds: 4), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MainPage()));
+          context, MaterialPageRoute(builder: (context) => KomatuPage()));
     });
     super.initState();
   }
