@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+            // Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
           },)
         ),
         body: Consumer<MainModel>(builder: (context, model, child) {

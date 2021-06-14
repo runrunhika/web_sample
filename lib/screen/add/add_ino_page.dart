@@ -5,14 +5,27 @@ import 'package:provider/provider.dart';
 import 'package:web_sample/model/ino_page_model.dart';
 import 'package:web_sample/screen/pages/ino_page.dart';
 
-class AddInoPage extends StatelessWidget {
+class AddInoPage extends StatefulWidget {
   final MainModel model;
   AddInoPage(this.model);
 
   @override
+  _AddInoPageState createState() => _AddInoPageState();
+}
+
+class _AddInoPageState extends State<AddInoPage> {
+  final text = TextEditingController();
+
+  @override
+  void dispose() {
+    text.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MainModel>.value(
-      value: model,
+      value: widget.model,
       child: Scaffold(
         appBar: AppBar(
             actions: [
@@ -23,8 +36,8 @@ class AddInoPage extends StatelessWidget {
                 ),
                 onPressed: () async {
                   // firestoreに値を追加する
-                  await addBook(model, context);
-                  
+                  await addBook(widget.model, context);
+                  dispose();
                 },
               ),
             ],
@@ -42,6 +55,7 @@ class AddInoPage extends StatelessWidget {
                 TextField(
                   maxLength: 120,
                   maxLines: 10,
+                  controller: text,
                   decoration: InputDecoration(
                     filled: true,
                     focusColor: Colors.lightBlue.shade100,
@@ -73,7 +87,7 @@ class AddInoPage extends StatelessWidget {
               ElevatedButton(
                 child: Text('OK'),
                 onPressed: () {
-                 Navigator.pop(context);
+                  Navigator.pop(context);
                 },
               ),
             ],
