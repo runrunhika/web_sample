@@ -37,7 +37,6 @@ class _AddInoPageState extends State<AddInoPage> {
                 onPressed: () async {
                   // firestoreに値を追加する
                   await addBook(widget.model, context);
-                  dispose();
                 },
               ),
             ],
