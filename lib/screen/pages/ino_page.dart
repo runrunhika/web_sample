@@ -17,11 +17,8 @@ class _MainPageState extends State<MainPage> {
     return ChangeNotifierProvider<MainModel>(
       create: (_) => MainModel()..getTodoListRealtime(),
       child: Scaffold(
-        backgroundColor: Colors.black,
         appBar: AppBar(
-                    backgroundColor: Colors.black,
-
-          title: Text('井上ゆうじを特定する', style: TextStyle(color: Colors.red),),
+          title: Text('井上ゆうじを特定する'),
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
@@ -40,7 +37,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                     subtitle: Text(
                       todo.title,
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 )

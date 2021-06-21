@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:translator/translator.dart';
 
-import '../main.dart';
-
-class HomeScreen extends StatefulWidget {
+class ControllerPage extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<ControllerPage> {
   FlutterTts flutterTts = FlutterTts();
   GoogleTranslator translator = GoogleTranslator();
   String inputText = '';
@@ -56,45 +54,66 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
-        },
-      )),
+        title: Text(
+          'Translate & Speech',
+          style: TextStyle(
+              fontFamily: 'DancingScript',
+              fontSize: 40,
+              fontWeight: FontWeight.bold),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Colors.orangeAccent, Colors.lightBlueAccent],
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft)),
+        ),
+        centerTitle: true,
+        backgroundColor: Color(0xffFFC100),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            TextField(
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(25),
-                hintText: '単語・文を入力',
-                hintStyle: TextStyle(color: Colors.white),
-                border: InputBorder.none,
-                filled: true,
-                fillColor: Color(0xff263238),
-                suffixIcon: _loading
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.white,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(25),
+                  labelText: '検索',
+                  labelStyle: TextStyle(color: Colors.white),
+                  hintText: 'Hello or こんにちは',
+                  hintStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  filled: true,
+                  fillColor: Color(0xff263238),
+                  suffixIcon: _loading
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white),
+                              borderRadius: BorderRadius.circular(60)),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.translate,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              if (inputText.isNotEmpty) translate();
+                            },
+                          ),
                         ),
-                      )
-                    : IconButton(
-                        icon: Icon(
-                          Icons.translate,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          if (inputText.isNotEmpty) translate();
-                        },
-                      ),
+                ),
+                onChanged: (input) {
+                  inputText = input;
+                },
               ),
-              onChanged: (input) {
-                inputText = input;
-              },
             ),
             Expanded(
               child: ListView(

@@ -16,36 +16,13 @@ class _MainPageState extends State<KomatuPage> {
     return ChangeNotifierProvider<KomatuModel>(
       create: (_) => KomatuModel()..getKomatuListRealtime(),
       child: Scaffold(
-                backgroundColor: Colors.black,
-
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Text('小松がロックバンドやるらしいwwwwww', style: TextStyle(color: Colors.red),),
+          title: Text('小松がロックバンドやるらしいwwwwww'),
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
           },)),
-          // actions: [
-          //   Consumer<MainModel>(builder: (context, model, child) {
-          //     final isActive = model.checkShouldActiveCompleteButton();
-          //     return FlatButton(
-          //       onPressed: isActive
-          //           ? () async {
-          //               await model.deleteCheckedItems();
-          //             }
-          //           : null,
-          //       child: Text(
-          //         '完了',
-          //         style: TextStyle(
-          //           color:
-          //               isActive ? Colors.white : Colors.white.withOpacity(0.5),
-          //         ),
-          //       ),
-          //     );
-          //   })
-          // ],
-        
         body: Consumer<KomatuModel>(builder: (context, model, child) {
           final todoList = model.komatuList;
           return ListView(
@@ -58,7 +35,7 @@ class _MainPageState extends State<KomatuPage> {
                     ),
                     subtitle: Text(
                       todo.title,
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 )
