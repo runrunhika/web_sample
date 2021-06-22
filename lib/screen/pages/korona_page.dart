@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/main.dart';
-import 'package:web_sample/model/ino_page_model.dart';
+import 'package:web_sample/model/korona_model.dart';
 
-import '../add/add_ino_page.dart';
+import '../add/add_korona_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -14,21 +14,21 @@ class _MainPageState extends State<MainPage> {
   
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MainModel>(
-      create: (_) => MainModel()..getTodoListRealtime(),
+    return ChangeNotifierProvider<KoronaModel>(
+      create: (_) => KoronaModel()..getKoronaListRealtime(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('井上ゆうじを特定する'),
+          title: Text('コロナ速報'),
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
           },)
         ),
-        body: Consumer<MainModel>(builder: (context, model, child) {
-          final todoList = model.todoList;
+        body: Consumer<KoronaModel>(builder: (context, model, child) {
+          final koronaList = model.koronaList;
           return ListView(
-            children: todoList
+            children: koronaList
                 .map(
                   (todo) => ListTile(
                     title: Text(
@@ -45,18 +45,18 @@ class _MainPageState extends State<MainPage> {
           );
         }),
         floatingActionButton:
-            Consumer<MainModel>(builder: (context, model, child) {
+            Consumer<KoronaModel>(builder: (context, model, child) {
           return FloatingActionButton.extended(
             onPressed: () async {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddInoPage(model),
+                  builder: (context) => AddKoronaPage(model),
                   fullscreenDialog: true,
                 ),
               );
             },
-            label: const Text('Tweet'),
+            label: const Text('投稿する'),
             icon: const Icon(Icons.add),
             backgroundColor: Colors.pink,
           );

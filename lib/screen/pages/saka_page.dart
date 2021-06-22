@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/main.dart';
-import 'package:web_sample/model/komatu_model.dart';
+import 'package:web_sample/model/saka_model.dart';
 
-import '../add/add_komatu_page.dart';
+import '../add/add_saka_page.dart';
 
-class KomatuPage extends StatefulWidget {
+class SakaPage extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  _SakaPageState createState() => _SakaPageState();
 }
 
-class _MainPageState extends State<KomatuPage> {
+class _SakaPageState extends State<SakaPage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<KomatuModel>(
-      create: (_) => KomatuModel()..getKomatuListRealtime(),
+    return ChangeNotifierProvider<SakaModel>(
+      create: (_) => SakaModel()..getSakaListRealtime(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('小松がロックバンドやるらしいwwwwww'),
+          title: Text('坂道チンコロ'),
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
           },)),
-        body: Consumer<KomatuModel>(builder: (context, model, child) {
-          final todoList = model.komatuList;
+        body: Consumer<SakaModel>(builder: (context, model, child) {
+          final todoList = model.sakaList;
           return ListView(
             children: todoList
                 .map(
@@ -43,18 +43,18 @@ class _MainPageState extends State<KomatuPage> {
           );
         }),
         floatingActionButton:
-            Consumer<KomatuModel>(builder: (context, model, child) {
+            Consumer<SakaModel>(builder: (context, model, child) {
           return FloatingActionButton.extended(
             onPressed: () async {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddKomatuPage(model),
+                  builder: (context) => AddSakaPage(model),
                   fullscreenDialog: true,
                 ),
               );
             },
-            label: const Text('Tweet'),
+            label: const Text('投稿する'),
             icon: const Icon(Icons.add),
             backgroundColor: Colors.pink,
           );

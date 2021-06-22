@@ -2,38 +2,38 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:web_sample/domain/data.dart';
 
-class KomatuModel extends ChangeNotifier {
-  List<Todo> komatuList = [];
-  String newKomatuText = '';
+class SakaModel extends ChangeNotifier {
+  List<Todo> sakaList = [];
+  String newSakaText = '';
 
-  Future getKomatuList() async {
+  Future getSakaList() async {
     final snapshot =
-        await FirebaseFirestore.instance.collection('chatList').get();
+        await FirebaseFirestore.instance.collection('sakaList').get();
     final docs = snapshot.docs;
     final todoList = docs.map((doc) => Todo(doc)).toList();
-    this.komatuList = todoList;
+    this.sakaList = todoList;
     notifyListeners();
   }
 
-  void getKomatuListRealtime() {
+  void getSakaListRealtime() {
     final snapshots =
-        FirebaseFirestore.instance.collection('chatList').snapshots();
+        FirebaseFirestore.instance.collection('sakaList').snapshots();
     snapshots.listen((snapshot) {
       final docs = snapshot.docs;
       final todoList = docs.map((doc) => Todo(doc)).toList();
       todoList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-      this.komatuList = todoList;
+      this.sakaList = todoList;
       notifyListeners();
     });
   }
 
-  Future addKomatu() async {
-    if (newKomatuText.isEmpty) {
+  Future addSaka() async {
+    if (newSakaText.isEmpty) {
       throw ('タイトルを入力してください');
     }
-    final collection = FirebaseFirestore.instance.collection('chatList');
+    final collection = FirebaseFirestore.instance.collection('sakaList');
     await collection.add({
-      'title': newKomatuText,
+      'title': newSakaText,
       'createdAt': Timestamp.now(),
     });
   }
@@ -42,9 +42,9 @@ class KomatuModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteKomatu(Todo todo) async {
+  Future deleteSaka(Todo todo) async {
     await FirebaseFirestore.instance
-        .collection('chatList')
+        .collection('sakaList')
         .doc(todo.documentID)
         .delete();
   }

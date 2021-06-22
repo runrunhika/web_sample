@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_sample/model/new_model.dart';
+import 'package:web_sample/screen/add/add_new_page.dart';
 import 'package:web_sample/screen/controller/controller_acsec_page.dart';
-import 'package:web_sample/screen/pages/ino_page.dart';
-import 'package:web_sample/screen/pages/komatu_page.dart';
+import 'package:web_sample/screen/pages/saka_page.dart';
+import 'package:web_sample/screen/pages/korona_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,79 +34,105 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Container(),
-        title: Text("ポップAG"),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.settings),
+    return ChangeNotifierProvider<NewModel>(
+      create: (_) => NewModel(),
+      child: Scaffold(
+          appBar: AppBar(
+            leading: Container(),
+            title: Text("掲示板ポップA"),
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (ctx) => ContAc()));
+                  })
+            ],
+          ),
+          body: ListView(
+            children: [
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 28.0),
+                child: InkWell(
+                  child: Container(
+                    width: double.infinity,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: ListTile(
+                          title: Text(
+                            "スレッド",
+                            style:
+                                TextStyle(color: Colors.grey.withOpacity(.5)),
+                          ),
+                          subtitle: Text(
+                            "コロナ速報",
+                            style: TextStyle(
+                                fontSize: 30,
+                                decoration: TextDecoration.underline,
+                                color: Colors.black),
+                          ),
+                          leading: Icon(
+                            Icons.arrow_circle_up,
+                            color: Colors.red,
+                          ),
+                        )),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (ctx) => MainPage()));
+                  },
+                ),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 28.0),
+                child: InkWell(
+                  child: Container(
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: ListTile(
+                          title: Text(
+                            "スレッド",
+                            style:
+                                TextStyle(color: Colors.grey.withOpacity(.5)),
+                          ),
+                          subtitle: Text(
+                            "坂道チンコロ",
+                            style: TextStyle(
+                                fontSize: 30,
+                                decoration: TextDecoration.underline,
+                                color: Colors.black),
+                          ),
+                          leading: Icon(
+                            Icons.arrow_circle_up,
+                            color: Colors.red,
+                          ),
+                        )),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (ctx) => SakaPage()));
+                  },
+                ),
+              ),
+              Divider(
+                color: Colors.white,
+              ),
+            ],
+          ),
+          floatingActionButton:
+              Consumer<NewModel>(builder: (context, model, child) {
+            return FloatingActionButton.extended(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => ContAc()));
-              })
-        ],
-      ),
-      body: ListView(
-        children: [
-          Divider(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 28.0),
-            child: InkWell(
-              child: Container(
-                width: double.infinity,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      title: Text(
-                        "井上の件",
-                        style: TextStyle(
-                          fontSize: 30,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      leading: Icon(
-                        Icons.arrow_circle_up,
-                        color: Colors.red,
-                      ),
-                    )),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => MainPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => AddNewPage(model)));
               },
-            ),
-          ),
-          Divider(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 28.0),
-            child: InkWell(
-              child: Container(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      title: Text("小松がロックバンドやるらしいwwwwww",
-                          style: TextStyle(
-                            fontSize: 30,
-                            decoration: TextDecoration.underline,
-                          )),
-                      leading: Icon(
-                        Icons.arrow_circle_up,
-                        color: Colors.red,
-                      ),
-                    )),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => KomatuPage()));
-              },
-            ),
-          ),
-          Divider(
-            color: Colors.white,
-          ),
-        ],
-      ),
+              label: const Text('スレッド追加要求'),
+              icon: const Icon(Icons.mail),
+              backgroundColor: Colors.blue,
+            );
+          })),
     );
   }
 }

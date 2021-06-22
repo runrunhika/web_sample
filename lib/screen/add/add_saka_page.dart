@@ -1,30 +1,23 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_sample/model/ino_page_model.dart';
-import 'package:web_sample/screen/pages/ino_page.dart';
+import 'package:web_sample/model/saka_model.dart';
 
-class AddInoPage extends StatefulWidget {
-  final MainModel model;
-  AddInoPage(this.model);
+import '../pages/saka_page.dart';
+
+class AddSakaPage extends StatefulWidget {
+  final SakaModel model;
+  AddSakaPage(this.model);
 
   @override
-  _AddInoPageState createState() => _AddInoPageState();
+  _AddSakaPageState createState() => _AddSakaPageState();
 }
 
-class _AddInoPageState extends State<AddInoPage> {
-  final text = TextEditingController();
-
-  @override
-  void dispose() {
-    text.dispose();
-    super.dispose();
-  }
+class _AddSakaPageState extends State<AddSakaPage> {
+  final _sakaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MainModel>.value(
+    return ChangeNotifierProvider<SakaModel>.value(
       value: widget.model,
       child: Scaffold(
         appBar: AppBar(
@@ -35,26 +28,25 @@ class _AddInoPageState extends State<AddInoPage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  // firestoreに値を追加する
-                  await addBook(widget.model, context);
+                  await addSaka(widget.model, context);
                 },
               ),
             ],
             leading: TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (ctx) => MainPage()));
+                      context, MaterialPageRoute(builder: (ctx) => SakaPage()));
                 },
                 child: Text("戻る", style: TextStyle(color: Colors.white)))),
-        body: Consumer<MainModel>(builder: (context, model, child) {
+        body: Consumer<SakaModel>(builder: (context, model, child) {
           return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 TextField(
                   maxLength: 120,
-                  maxLines: 10,
-                  controller: text,
+                  maxLines: 6,
+                  controller: _sakaController,
                   decoration: InputDecoration(
                     filled: true,
                     focusColor: Colors.lightBlue.shade100,
@@ -63,8 +55,11 @@ class _AddInoPageState extends State<AddInoPage> {
                     hintText: "大日本帝国万歳",
                   ),
                   onChanged: (text) {
-                    model.newTodoText = text;
+                    model.newSakaText = text;
                   },
+                ),
+                SizedBox(
+                  height: 16,
                 ),
               ],
             ),
@@ -74,9 +69,9 @@ class _AddInoPageState extends State<AddInoPage> {
     );
   }
 
-  Future addBook(MainModel model, BuildContext context) async {
+  Future addSaka(SakaModel model, BuildContext context) async {
     try {
-      await model.addIno();
+      await model.addSaka();
       await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -86,6 +81,10 @@ class _AddInoPageState extends State<AddInoPage> {
               ElevatedButton(
                 child: Text('OK'),
                 onPressed: () {
+                  setState(() {
+                    _sakaController.clear();
+                    model.newSakaText = "";
+                  });
                   Navigator.pop(context);
                 },
               ),
