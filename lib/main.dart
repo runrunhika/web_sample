@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 TextStyle(color: Colors.grey.withOpacity(.5)),
                           ),
                           subtitle: Text(
-                            "坂道チンコロ",
+                            "都市伝説",
                             style: TextStyle(
                                 fontSize: 30,
                                 decoration: TextDecoration.underline,
