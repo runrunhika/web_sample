@@ -7,8 +7,8 @@ class NewModel extends ChangeNotifier {
   String newNewText = '';
 
   Future addNew() async {
-    if (newNewText.isEmpty) {
-      throw ('タイトルを入力してください');
+    if (newNewText.length < 5) {
+      throw ('5文字以上で投稿してください');
     }
     final collection = FirebaseFirestore.instance.collection('newList');
     await collection.add({

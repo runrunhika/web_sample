@@ -44,22 +44,18 @@ class _AddSakaPageState extends State<AddSakaPage> {
             child: Column(
               children: [
                 TextField(
-                  maxLength: 120,
-                  maxLines: 6,
+                  maxLength: 300,
+                  maxLines: 20,
                   controller: _sakaController,
                   decoration: InputDecoration(
                     filled: true,
                     focusColor: Colors.lightBlue.shade100,
                     border: OutlineInputBorder(),
                     labelText: "掲示板に投稿したい内容を記入しよう",
-                    hintText: "大日本帝国万歳",
                   ),
                   onChanged: (text) {
                     model.newSakaText = text;
                   },
-                ),
-                SizedBox(
-                  height: 16,
                 ),
               ],
             ),
@@ -76,10 +72,10 @@ class _AddSakaPageState extends State<AddSakaPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('投稿しました'),
+            title: Text('投稿完了'),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('OK'),
+                child: Text('掲示板に行く'),
                 onPressed: () {
                   setState(() {
                     _sakaController.clear();
@@ -101,7 +97,7 @@ class _AddSakaPageState extends State<AddSakaPage> {
             title: Text(e.toString()),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('はい！イエッサ！！！'),
+                child: Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

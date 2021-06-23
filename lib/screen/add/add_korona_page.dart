@@ -44,15 +44,14 @@ class _AddKoronaPageState extends State<AddKoronaPage> {
             child: Column(
               children: [
                 TextField(
-                  maxLength: 120,
-                  maxLines: 10,
+                  maxLength: 300,
+                  maxLines: 20,
                   controller: _koronaController,
                   decoration: InputDecoration(
                     filled: true,
                     focusColor: Colors.lightBlue.shade100,
                     border: OutlineInputBorder(),
                     labelText: "掲示板に投稿したい内容を記入しよう",
-                    hintText: "大日本帝国万歳",
                   ),
                   onChanged: (text) {
                     model.newKoronaText = text;
@@ -73,10 +72,10 @@ class _AddKoronaPageState extends State<AddKoronaPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('投稿しました'),
+            title: Text('投稿完了'),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('OK'),
+                child: Text('掲示板に行く'),
                 onPressed: () {
                   setState(() {
                     _koronaController.clear();
@@ -98,7 +97,7 @@ class _AddKoronaPageState extends State<AddKoronaPage> {
             title: Text(e.toString()),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('はい！イエッサ！！！'),
+                child: Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

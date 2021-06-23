@@ -28,8 +28,8 @@ class SakaModel extends ChangeNotifier {
   }
 
   Future addSaka() async {
-    if (newSakaText.isEmpty) {
-      throw ('タイトルを入力してください');
+    if (newSakaText.length < 5) {
+      throw ('5文字以上で投稿してください');
     }
     final collection = FirebaseFirestore.instance.collection('sakaList');
     await collection.add({
@@ -42,10 +42,10 @@ class SakaModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteSaka(Todo todo) async {
-    await FirebaseFirestore.instance
-        .collection('sakaList')
-        .doc(todo.documentID)
-        .delete();
-  }
+  // Future deleteSaka(Todo todo) async {
+  //   await FirebaseFirestore.instance
+  //       .collection('sakaList')
+  //       .doc(todo.documentID)
+  //       .delete();
+  // }
 }

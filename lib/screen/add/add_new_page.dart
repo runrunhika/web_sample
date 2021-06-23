@@ -20,10 +20,11 @@ class _AddNewPageState extends State<AddNewPage> {
       value: widget.model,
       child: Scaffold(
         appBar: AppBar(
+          title: Text("スレッド追加要求"),
             actions: [
               TextButton(
                 child: Text(
-                  '投稿',
+                  '運営に送信する',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
@@ -44,15 +45,14 @@ class _AddNewPageState extends State<AddNewPage> {
             child: Column(
               children: [
                 TextField(
-                  maxLength: 120,
-                  maxLines: 10,
+                  maxLength: 20,
+                  maxLines: 2,
                   controller: _newController,
                   decoration: InputDecoration(
                     filled: true,
                     focusColor: Colors.lightBlue.shade100,
                     border: OutlineInputBorder(),
-                    labelText: "掲示板に投稿したい内容を記入しよう",
-                    hintText: "大日本帝国万歳",
+                    labelText: "追加して欲しいスレッドを要求してみよう",
                   ),
                   onChanged: (text) {
                     model.newNewText = text;
@@ -73,7 +73,7 @@ class _AddNewPageState extends State<AddNewPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('投稿しました'),
+            title: Text('要求完了'),
             actions: <Widget>[
               ElevatedButton(
                 child: Text('OK'),
@@ -98,7 +98,7 @@ class _AddNewPageState extends State<AddNewPage> {
             title: Text(e.toString()),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('はい！イエッサ！！！'),
+                child: Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

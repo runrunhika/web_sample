@@ -28,8 +28,8 @@ class KoronaModel extends ChangeNotifier {
   }
 
   Future addKrona() async {
-    if (newKoronaText.isEmpty) {
-      throw ('タイトルを入力してください');
+    if (newKoronaText.length < 5) {
+      throw ('5文字以上で投稿してください');
     }
     final collection = FirebaseFirestore.instance.collection('koronaList');
     await collection.add({
@@ -42,10 +42,10 @@ class KoronaModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteBook(Todo todo) async {
-    await FirebaseFirestore.instance
-        .collection('koronaList')
-        .doc(todo.documentID)
-        .delete();
-  }
+  // Future deleteBook(Todo todo) async {
+  //   await FirebaseFirestore.instance
+  //       .collection('koronaList')
+  //       .doc(todo.documentID)
+  //       .delete();
+  // }
 }
