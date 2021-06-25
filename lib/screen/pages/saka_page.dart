@@ -17,7 +17,7 @@ class _SakaPageState extends State<SakaPage> {
       create: (_) => SakaModel()..getSakaListRealtime(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('都市伝説'),
+          title: Text('お茶の間（情報交換）'),
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){

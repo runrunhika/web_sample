@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.web_sample">
+    package="com.genyosystem.right">
    <application
-        android:label="web_sample"
+        android:label="掲示板ライトスタンド"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

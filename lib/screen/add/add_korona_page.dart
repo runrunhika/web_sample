@@ -41,7 +41,7 @@ class _AddKoronaPageState extends State<AddKoronaPage> {
         body: Consumer<KoronaModel>(builder: (context, model, child) {
           return Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
+            child: ListView(
               children: [
                 TextField(
                   maxLength: 300,

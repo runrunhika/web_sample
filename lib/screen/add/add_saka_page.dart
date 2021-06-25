@@ -41,7 +41,7 @@ class _AddSakaPageState extends State<AddSakaPage> {
         body: Consumer<SakaModel>(builder: (context, model, child) {
           return Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
+            child: ListView(
               children: [
                 TextField(
                   maxLength: 300,

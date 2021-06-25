@@ -1,4 +1,4 @@
-package com.example.web_sample
+package com.genyosystem.right
 
 import io.flutter.embedding.android.FlutterActivity
 

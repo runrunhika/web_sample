@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
           appBar: AppBar(
             leading: Container(),
-            title: Text("掲示板ポップA"),
+            title: Text("掲示板ライトスタンド"),
             actions: [
               IconButton(
                   icon: Icon(Icons.settings),
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 TextStyle(color: Colors.grey.withOpacity(.5)),
                           ),
                           subtitle: Text(
-                            "都市伝説",
+                            "お茶の間（情報交換）",
                             style: TextStyle(
                                 fontSize: 30,
                                 decoration: TextDecoration.underline,
