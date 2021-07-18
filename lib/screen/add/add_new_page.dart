@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/main.dart';
 import 'package:web_sample/model/new_model.dart';
+import 'package:web_sample/screen/pages/main_page.dart';
 
 class AddNewPage extends StatefulWidget {
   final NewModel model;
@@ -36,7 +37,7 @@ class _AddNewPageState extends State<AddNewPage> {
             leading: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      MaterialPageRoute(builder: (ctx) => MainPage()));
                 },
                 child: Text("戻る", style: TextStyle(color: Colors.white)))),
         body: Consumer<NewModel>(builder: (context, model, child) {

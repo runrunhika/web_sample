@@ -1,11 +1,11 @@
+import 'dart:async';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:web_sample/model/new_model.dart';
-import 'package:web_sample/screen/add/add_new_page.dart';
-import 'package:web_sample/screen/controller/controller_acsec_page.dart';
-import 'package:web_sample/screen/pages/saka_page.dart';
-import 'package:web_sample/screen/pages/korona_page.dart';
+import 'package:flutter_fadein/flutter_fadein.dart';
+
+import 'screen/pages/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,114 +25,82 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _controller = FadeInController();
+
   @override
+  void initState() {
+    _controller.fadeIn();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<NewModel>(
-      create: (_) => NewModel(),
-      child: Scaffold(
-          appBar: AppBar(
-            leading: Container(),
-            title: Text("掲示板ライトスタンド"),
-            actions: [
-              IconButton(
-                  icon: Icon(Icons.settings),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 80,
+            ),
+            Image.asset(
+              'assets/icon.png',
+              fit: BoxFit.cover,
+              width: 250,
+              height: 250,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            DefaultTextStyle(
+              style: const TextStyle(fontSize: 30.0, color: Colors.black),
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  WavyAnimatedText('The space is my garden'),
+                ],
+                isRepeatingAnimation: true,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Container(
+                  width: 100,
+                  height: 100,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.redAccent,
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: FadeIn(
+                controller: _controller,
+                child: TextButton(
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (ctx) => ContAc()));
-                  })
-            ],
-          ),
-          body: ListView(
-            children: [
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
-                child: InkWell(
-                  child: Container(
-                    width: double.infinity,
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: ListTile(
-                          title: Text(
-                            "スレッド",
-                            style:
-                                TextStyle(color: Colors.grey.withOpacity(.5)),
-                          ),
-                          subtitle: Text(
-                            "コロナ速報",
-                            style: TextStyle(
-                                fontSize: 30,
-                                decoration: TextDecoration.underline,
-                                color: Colors.black),
-                          ),
-                          leading: Icon(
-                            Icons.arrow_circle_up,
-                            color: Colors.red,
-                          ),
-                        )),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => MainPage()));
+                        context, MaterialPageRoute(builder: (ctx) => MainPage()));
                   },
+                  child: Text("タップ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 40)),
                 ),
+                duration: Duration(seconds: 5),
               ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
-                child: InkWell(
-                  child: Container(
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: ListTile(
-                          title: Text(
-                            "スレッド",
-                            style:
-                                TextStyle(color: Colors.grey.withOpacity(.5)),
-                          ),
-                          subtitle: Text(
-                            "お茶の間（情報交換）",
-                            style: TextStyle(
-                                fontSize: 30,
-                                decoration: TextDecoration.underline,
-                                color: Colors.black),
-                          ),
-                          leading: Icon(
-                            Icons.arrow_circle_up,
-                            color: Colors.red,
-                          ),
-                        )),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => SakaPage()));
-                  },
-                ),
-              ),
-              Divider(
-                color: Colors.white,
-              ),
-            ],
-          ),
-          floatingActionButton:
-              Consumer<NewModel>(builder: (context, model, child) {
-            return FloatingActionButton.extended(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => AddNewPage(model)));
-              },
-              label: const Text('スレッド追加要求'),
-              icon: const Icon(Icons.mail),
-              backgroundColor: Colors.blue,
-            );
-          })),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Container(
+                  width: 25,
+                  height: 25,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.limeAccent,
+                  )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

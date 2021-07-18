@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/model/korona_model.dart';
 import 'package:web_sample/screen/pages/korona_page.dart';
+import 'package:web_sample/screen/pages/main_page.dart';
 
 class AddKoronaPage extends StatefulWidget {
   final KoronaModel model;
@@ -35,7 +36,7 @@ class _AddKoronaPageState extends State<AddKoronaPage> {
             leading: TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (ctx) => MainPage()));
+                      context, MaterialPageRoute(builder: (ctx) => KoronaPage()));
                 },
                 child: Text("戻る", style: TextStyle(color: Colors.white)))),
         body: Consumer<KoronaModel>(builder: (context, model, child) {

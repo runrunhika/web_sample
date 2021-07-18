@@ -1,11 +1,11 @@
 {
-    "name": "web_sample",
-    "short_name": "web_sample",
+    "name": "Name2-1",
+    "short_name": "Name2-2",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter application.",
+    "description": "Sub2",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

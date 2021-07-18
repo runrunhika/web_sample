@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_sample/main.dart';
 import 'package:web_sample/model/saka_model.dart';
 
 import '../add/add_saka_page.dart';
+import 'main_page.dart';
 
 class SakaPage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _SakaPageState extends State<SakaPage> {
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (ctx) => MainPage()));
           },)),
         body: Consumer<SakaModel>(builder: (context, model, child) {
           final todoList = model.sakaList;

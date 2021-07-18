@@ -4,13 +4,14 @@ import 'package:web_sample/main.dart';
 import 'package:web_sample/model/korona_model.dart';
 
 import '../add/add_korona_page.dart';
+import 'main_page.dart';
 
-class MainPage extends StatefulWidget {
+class KoronaPage extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  _KoronaPageState createState() => _KoronaPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _KoronaPageState extends State<KoronaPage> {
   
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class _MainPageState extends State<MainPage> {
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (ctx) => MainPage()));
           },)
         ),
         body: Consumer<KoronaModel>(builder: (context, model, child) {
