@@ -1,19 +1,17 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:web_sample/domain/data.dart';
 
 class KoronaModel extends ChangeNotifier {
   List<Todo> koronaList = [];
+  File imageFile;
+  bool isLoading = false;
+  String name = '';
   String newKoronaText = '';
-
-  Future getKoronaList() async {
-    final snapshot =
-        await FirebaseFirestore.instance.collection('koronaList').get();
-    final docs = snapshot.docs;
-    final koronaList = docs.map((doc) => Todo(doc)).toList();
-    this.koronaList = koronaList;
-    notifyListeners();
-  }
 
   void getKoronaListRealtime() {
     final snapshots =
@@ -27,25 +25,46 @@ class KoronaModel extends ChangeNotifier {
     });
   }
 
+  startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  endLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
+
   Future addKrona() async {
     if (newKoronaText.length < 5) {
       throw ('5文字以上で投稿してください');
     }
-    final collection = FirebaseFirestore.instance.collection('koronaList');
-    await collection.add({
-      'title': newKoronaText,
-      'createdAt': Timestamp.now(),
-    });
+    final imageURL = await _uploadImageFile();
+    FirebaseFirestore.instance.collection('koronaList').add(
+      {
+        'title': newKoronaText,
+        'imageURL': imageURL,
+        'name': name,
+        'createdAt': Timestamp.now(),
+      },
+    );
   }
 
-  void reload() {
+  setImage(File imageFile) {
+    this.imageFile = imageFile;
     notifyListeners();
   }
 
-  // Future deleteBook(Todo todo) async {
-  //   await FirebaseFirestore.instance
-  //       .collection('koronaList')
-  //       .doc(todo.documentID)
-  //       .delete();
-  // }
+  Future<String> _uploadImageFile() async {
+    if (imageFile.path.isEmpty) {
+      return '';
+    }
+    final storage = FirebaseStorage.instance;
+    final ref = storage.ref().child('books').child(newKoronaText);
+    final snapshot = await ref.putFile(
+      imageFile,
+    );
+    final downloadURL = await snapshot.ref.getDownloadURL();
+    return downloadURL;
+  }
 }

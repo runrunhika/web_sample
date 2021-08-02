@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_sample/model/new_model.dart';
 import 'package:web_sample/screen/add/add_new_page.dart';
-import 'package:web_sample/screen/pages/saka_page.dart';
 
 import 'korona_page.dart';
 
-
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({Key key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -56,38 +54,6 @@ class _MainPageState extends State<MainPage> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (ctx) => KoronaPage()));
-                  },
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
-                child: InkWell(
-                  child: Container(
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: ListTile(
-                          title: Text(
-                            "スレッド",
-                            style:
-                                TextStyle(color: Colors.grey.withOpacity(.5)),
-                          ),
-                          subtitle: Text(
-                            "お茶の間（情報交換）",
-                            style: TextStyle(
-                                fontSize: 30,
-                                decoration: TextDecoration.underline,
-                                color: Colors.black),
-                          ),
-                          leading: Icon(
-                            Icons.arrow_circle_up,
-                            color: Colors.red,
-                          ),
-                        )),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => SakaPage()));
                   },
                 ),
               ),

@@ -12,39 +12,63 @@ class KoronaPage extends StatefulWidget {
 }
 
 class _KoronaPageState extends State<KoronaPage> {
-  
+
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<KoronaModel>(
       create: (_) => KoronaModel()..getKoronaListRealtime(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('コロナ速報'),
-          centerTitle: true,
-          leading: IconButton(icon: Icon(Icons.arrow_back_ios),
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (ctx) => MainPage()));
-          },)
+            title: Text('コロナ速報'),
+            centerTitle: true,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => MainPage()));
+              },
+            )),
+        body: Consumer<KoronaModel>(
+          builder: (context, model, child) {
+            final koronaList = model.koronaList;
+            final listTiles = koronaList
+                .map((book) => Container(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: Text(
+                              book.name.isEmpty
+                                  ? '名無し : ' + book.createdAt.toString()
+                                  : book.name +
+                                      ' : ' +
+                                      book.createdAt.toString(),
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(.5)),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  book.title,
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.black),
+                                ),
+                                book.imageURL.isEmpty
+                                    ? SizedBox()
+                                    : Image.network(book.imageURL, fit: BoxFit.cover,),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+                .toList();
+            return ListView(
+              children: listTiles,
+            );
+          },
         ),
-        body: Consumer<KoronaModel>(builder: (context, model, child) {
-          final koronaList = model.koronaList;
-          return ListView(
-            children: koronaList
-                .map(
-                  (todo) => ListTile(
-                    title: Text(
-                      '名無し　' + todo.createdAt.toString(),
-                      style: TextStyle(color: Colors.grey.withOpacity(.6)),
-                    ),
-                    subtitle: Text(
-                      todo.title,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                )
-                .toList(),
-          );
-        }),
         floatingActionButton:
             Consumer<KoronaModel>(builder: (context, model, child) {
           return FloatingActionButton.extended(
@@ -56,6 +80,7 @@ class _KoronaPageState extends State<KoronaPage> {
                   fullscreenDialog: true,
                 ),
               );
+              model.getKoronaListRealtime();
             },
             label: const Text('投稿する'),
             icon: const Icon(Icons.add),

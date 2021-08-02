@@ -25,82 +25,37 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _controller = FadeInController();
-
   @override
   void initState() {
-    _controller.fadeIn();
+    Timer(Duration(seconds: 5), () {
+      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MainPage()));
+    });
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 80,
-            ),
-            Image.asset(
-              'assets/icon.png',
-              fit: BoxFit.cover,
-              width: 250,
-              height: 250,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            DefaultTextStyle(
-              style: const TextStyle(fontSize: 30.0, color: Colors.black),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  WavyAnimatedText('The space is my garden'),
-                ],
-                isRepeatingAnimation: true,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Container(
-                  width: 100,
-                  height: 100,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.redAccent,
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: FadeIn(
-                controller: _controller,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (ctx) => MainPage()));
-                  },
-                  child: Text("タップ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 40)),
-                ),
-                duration: Duration(seconds: 5),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Container(
-                  width: 25,
-                  height: 25,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.limeAccent,
-                  )),
-            ),
-          ],
-        ),
-      ),
-    );
+    return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 700) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [Text('掲示板')],
+        );
+      } else {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [Text('掲示板')],
+        );
+      }
+    }));
   }
 }
