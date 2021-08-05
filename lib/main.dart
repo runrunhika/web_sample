@@ -1,32 +1,33 @@
 import 'dart:async';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fadein/flutter_fadein.dart';
+import 'package:get/route_manager.dart';
+import 'package:web_sample/pages/mobile/mobileHomePage.dart';
+import 'package:web_sample/pages/web/webHomePage.dart';
 
-import 'screen/pages/main_page.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      title: 'Rock Band',
       debugShowCheckedModeBanner: false,
-      title: '掲示板',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: MyHomePage(),
+      getPages: [
+        GetPage(name: '/myHomePage', page: () => MyHomePage()),
+        GetPage(name: '/mainPage', page: () => MainPage())
+      ],
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key}) : super(key: key);
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -34,28 +35,52 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
-    Timer(Duration(seconds: 5), () {
-      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MainPage()));
+    Timer(Duration(seconds: 4), () {
+      Get.to(MainPage());
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 700) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [Text('掲示板')],
-        );
-      } else {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [Text('掲示板')],
-        );
-      }
-    }));
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxHeight > 700) {
+            return Column(
+              children: [Center(child: Text('Hello'))],
+            );
+          } else {
+            return Column(
+              children: [Center(child: Text('Hello'))],
+            );
+          }
+        },
+      ),
+    );
+  }
+}
+
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxHeight < 700) {
+            return MobileHomePage();
+          } else {
+            return WebHomePage();
+          }
+        },
+      ),
+    );
   }
 }
