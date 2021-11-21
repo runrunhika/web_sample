@@ -3,26 +3,45 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:vrouter/vrouter.dart';
+import 'package:web_sample/pages/mobile/mobileHomePage.dart';
+import 'package:web_sample/pages/test.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ScreenUtilInit(designSize: Size(360, 690), builder: () => MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Rock Band',
+    return VRouter(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MainPage(),
-      getPages: [GetPage(name: '/mainPage', page: () => MainPage())],
+      mode: VRouterMode.history,
+      routes: [
+        VWidget(
+            path: '/',
+            widget: MainPage(),
+            buildTransition: (animation, _, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            }),
+        VWidget(
+            path: '/co.jp',
+            widget: TestPage(),
+            buildTransition: (animation, _, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            }),
+        VRouteRedirector(path: '/', redirectTo: r'*')
+      ],
     );
   }
 }
@@ -240,6 +259,10 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text("Sample",
+                      style: TextStyle(fontSize: 100.sp, color: Colors.white)),
+                  Text("sample",
+                      style: TextStyle(fontSize: 100, color: Colors.white)),
                   Container(
                     key: itemKey,
                     child: Image.asset(
@@ -278,7 +301,13 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.vRouter.push('/co.jp');
+                          // Navigator.of(context)
+                          //     .push(MaterialPageRoute(builder: (context) {
+                          //   return TestPage();
+                          // }));
+                        },
                         icon: Icon(FontAwesomeIcons.youtube),
                         color: Colors.white,
                       ),
